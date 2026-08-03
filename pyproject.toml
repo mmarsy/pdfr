@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pdfr"
+version = "0.1.0"
+description = "A lightweight PDF reader with a desktop GUI."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+    { name = "Mikolaj" },
+]
+license = { text = "MIT" }
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Environment :: Win32 (MS Windows)",
+    "Environment :: X11 Applications",
+    "Environment :: MacOS X",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Multimedia :: Graphics :: Viewers",
+]
+dependencies = [
+    "PyMuPDF>=1.24,<2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8,<9",
+    "ruff>=0.6,<1",
+]
+
+[project.gui-scripts]
+pdfr = "pdfr.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["pdfr*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-q"
