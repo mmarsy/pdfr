@@ -14,7 +14,7 @@ Run both checks before considering work complete:
 
 ```powershell
 ruff check .
-pytest
+py -m compileall src
 ```
 
 ## Packaging
@@ -35,5 +35,7 @@ On Windows, this creates a GUI launcher that starts without a terminal window.
 - `pdfr.pdf_document` owns PyMuPDF document loading and page rendering.
 - `pdfr.app` owns the Tkinter window, toolbar, canvas, scrolling, panning, and
   zoom behavior.
+- `pdfr.storage` owns Windows app-data paths and JSON persistence under
+  `%APPDATA%\pdfr`.
 - GUI behavior is intentionally thin around the rendering wrapper so core logic
-  can be covered by tests without launching a window.
+  can be validated without launching a window.

@@ -7,10 +7,7 @@ from types import TracebackType
 
 import fitz
 
-MIN_ZOOM = 0.25
-MAX_ZOOM = 4.0
-DEFAULT_ZOOM = 1.0
-ZOOM_FACTOR = 1.2
+from pdfr.consts import MAX_ZOOM, MIN_ZOOM, ZOOM_FACTOR
 
 
 def clamp_zoom(value: float) -> float:
@@ -64,8 +61,10 @@ class PdfDocument:
 
     @property
     def title(self) -> str:
-        metadata_title = self._document.metadata.get("title", "").strip()
-        return metadata_title or self.path.name
+        if self._document.metadata is not None:
+            metadata_title = self._document.metadata.get("title", "").strip()
+            return metadata_title
+        return self.path.name
 
     def render_page(self, page_index: int, zoom: float) -> RenderedPage:
         if page_index < 0 or page_index >= self.page_count:
