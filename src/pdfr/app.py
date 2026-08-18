@@ -8,7 +8,7 @@ from tkinter import filedialog, messagebox, ttk
 import fitz
 
 from pdfr import __version__
-from pdfr.consts import PAGE_GAP, PAGE_MARGIN, PAGE_RENDER_BUFFER, SCROLL_UNITS, DEFAULT_ZOOM
+from pdfr.consts import DEFAULT_ZOOM, PAGE_GAP, PAGE_MARGIN, PAGE_RENDER_BUFFER, SCROLL_UNITS
 from pdfr.pdf_document import PdfDocument, clamp_zoom, zoom_in, zoom_out
 from pdfr.storage import AppStorage, DocumentIdentity, ViewerState, document_identity
 
@@ -342,6 +342,8 @@ class PdfReaderApp:
         self.zoom_label: ttk.Label
         self.notebook: ttk.Notebook
         self.empty_frame: ttk.Frame
+        self.tab_context_menu: tk.Menu
+        self.context_tab_id: str | None = None
 
         self._build_menu()
         self._build_layout()
@@ -453,7 +455,11 @@ class PdfReaderApp:
         self.notebook = ttk.Notebook(viewer_stack)
         self.notebook.grid(row=0, column=0, sticky="nsew")
         self.notebook.bind("<<NotebookTabChanged>>", self._notebook_tab_changed_event)
-        self.notebook.bind("<ButtonRelease-1>", self._notebook_button_release_event)
+        self.notebook.bind("<Button-3>", self._notebook_context_menu_event)
+
+        self.tab_context_menu = tk.Menu(self.root, tearoff=False)
+        self.tab_context_menu.add_command(label="View Tab", command=self.view_context_tab)
+        self.tab_context_menu.add_command(label="Close Tab", command=self.close_context_tab)
 
     def _bind_events(self) -> None:
         self.root.bind_all("<Control-o>", self._choose_pdf_event)
@@ -510,7 +516,7 @@ class PdfReaderApp:
         frame_id = str(tab.frame)
         self.tabs[frame_id] = tab
         self.tab_documents[frame_id] = identity
-        self.notebook.add(tab.frame, text=f"{tab.document.path.name}  x")
+        self.notebook.add(tab.frame, text=tab.document.path.name)
         self.notebook.select(tab.frame)
         self._show_tabs()
         self._update_title()
@@ -550,6 +556,17 @@ class PdfReaderApp:
 
     def previous_tab(self) -> None:
         self._select_relative_tab(-1)
+
+    def view_context_tab(self) -> None:
+        if self.context_tab_id is None:
+            return
+        self.select_tab(self.context_tab_id)
+
+    def close_context_tab(self) -> None:
+        if self.context_tab_id is None:
+            return
+        self.close_tab(self.context_tab_id)
+        self.context_tab_id = None
 
     def close_current_tab(self) -> None:
         selected_tab = self.notebook.select()
@@ -598,7 +615,13 @@ class PdfReaderApp:
 
         current_index = self.notebook.index("current")
         next_index = (current_index + offset) % tab_count
-        self.notebook.select(next_index)
+        self.select_tab(self.notebook.tabs()[next_index])
+
+    def select_tab(self, tab_id: str) -> None:
+        if tab_id not in self.tabs:
+            return
+
+        self.notebook.select(tab_id)
         selected_tab = self.current_tab()
         if selected_tab is not None:
             selected_tab.focus()
@@ -667,24 +690,16 @@ class PdfReaderApp:
         self._update_title()
         self._update_zoom_label()
 
-    def _notebook_button_release_event(self, event: tk.Event) -> None:
-        tab_id = self._tab_close_target(event)
-        if tab_id is not None:
-            self.close_tab(tab_id)
-
-    def _tab_close_target(self, event: tk.Event) -> str | None:
+    def _notebook_context_menu_event(self, event: tk.Event) -> str:
         try:
             index = self.notebook.index(f"@{event.x},{event.y}")
-            x, y, width, height = self.notebook.bbox(index)
         except tk.TclError:
-            return None
+            return "break"
 
-        close_area_width = 24
-        if event.x < x + width - close_area_width or event.x > x + width:
-            return None
-        if event.y < y or event.y > y + height:
-            return None
-        return self.notebook.tabs()[index]
+        self.context_tab_id = self.notebook.tabs()[index]
+        self.tab_context_menu.tk_popup(event.x_root, event.y_root)
+        self.tab_context_menu.grab_release()
+        return "break"
 
 
 def run(initial_path: Path | None = None) -> None:

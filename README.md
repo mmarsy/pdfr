@@ -54,7 +54,7 @@ pdfr-debug C:\path\to\file.pdf
 ## Controls
 
 - `Open` or `Ctrl+O`: open a PDF.
-- Click the `x` area on a tab or use `Ctrl+W`: close the current tab.
+- Right-click a tab to view or close it; `Ctrl+W` closes the current tab.
 - `+`, `Ctrl++`, or `Ctrl+=`: zoom in.
 - `-` or `Ctrl+-`: zoom out.
 - `1:1` or `Ctrl+0`: reset zoom to 100%.

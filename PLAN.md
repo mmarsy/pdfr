@@ -19,6 +19,7 @@ Whenever a goal is completed mark its completion like this:
 [X] 5. Investigate and fix the issue where the window opens but rendered PDF pages are not visible.
 [X] 6. Add Windows app-data storage for globally installed app usage.
 [X] 7. Persist PDF viewer state per document, including zoom and scroll position.
-[X] 8. Add closeable tab X behavior and make left/right arrows skip pages.
+[X] 8. Make left/right arrows skip pages.
 [X] 9. Update docs and validation instructions to avoid pytest.
 [X] 10. Add startup error logging and a console diagnostic entry point for silent GUI launcher failures.
+[X] 11. Replace broken tab X behavior with a right-click tab menu for viewing and closing tabs.

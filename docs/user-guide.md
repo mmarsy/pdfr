@@ -47,7 +47,7 @@ The `pdfr.exe` entry point is created under that path's `Scripts` directory.
 ## Controls
 
 - Open a PDF with the toolbar button, the File menu, or `Ctrl+O`.
-- Close a PDF tab with `Ctrl+W`, the toolbar button, or the tab's `x` area.
+- Right-click a PDF tab to view or close it. `Ctrl+W` and the toolbar button close the current tab.
 - Zoom with the toolbar buttons or `Ctrl++`, `Ctrl+=`, `Ctrl+-`, and `Ctrl+0`.
 - Scroll with the mouse wheel.
 - Pan by dragging the page area with the left mouse button.
