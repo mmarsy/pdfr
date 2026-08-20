@@ -76,13 +76,5 @@ scroll position. Startup failures from the terminal-free launcher are written to
 `pdfr.log` in the same directory. Annotation storage will use the same app data
 directory.
 
-## Development
-
-Run the validation commands before committing changes:
-
-```powershell
-ruff check .
-py -m compileall src
-```
 
 Project documentation is in [docs](docs/).
