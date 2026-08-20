@@ -7,7 +7,19 @@ from types import TracebackType
 
 import fitz
 
-from pdfr.consts import MAX_ZOOM, MIN_ZOOM, ZOOM_FACTOR
+from pdfr.consts import DEFAULT_ZOOM, MAX_ZOOM, MIN_ZOOM, ZOOM_FACTOR
+
+__all__ = [
+    "DEFAULT_ZOOM",
+    "MAX_ZOOM",
+    "MIN_ZOOM",
+    "PageSize",
+    "PdfDocument",
+    "RenderedPage",
+    "clamp_zoom",
+    "zoom_in",
+    "zoom_out",
+]
 
 
 def clamp_zoom(value: float) -> float:
