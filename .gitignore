@@ -218,4 +218,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Pdfs
 *.pdf
+
+# Notes
+dev-notes*

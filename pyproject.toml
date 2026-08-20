@@ -31,12 +31,15 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-    "pytest>=8,<9",
     "ruff>=0.6,<1",
+    "pytest",
 ]
 
 [project.gui-scripts]
 pdfr = "pdfr.__main__:main"
+
+[project.scripts]
+pdfr-debug = "pdfr.__main__:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -48,8 +51,3 @@ target-version = "py311"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "SIM"]
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-pythonpath = ["src"]
-addopts = "-q"

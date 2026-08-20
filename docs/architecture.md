@@ -1,6 +1,6 @@
 # Architecture
 
-`pdfr` has three small runtime modules.
+`pdfr` has four small runtime modules.
 
 ## `pdfr.__main__`
 
@@ -28,3 +28,11 @@ Scrolling is handled by canvas view operations:
 
 Zoom changes re-render the visible document at the selected scale and preserve
 the current vertical scroll position.
+
+## `pdfr.storage`
+
+Owns Windows-compatible app data persistence. Runtime state is stored under
+`%APPDATA%\pdfr` so the installed `pdfr` entry point can be launched globally
+without relying on the project directory. The first persisted file is
+`viewer_state.json`, keyed by a per-document identity derived from the resolved
+PDF path and validated with file size and modification time.
