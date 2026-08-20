@@ -409,6 +409,9 @@ class PdfReaderApp:
         self.root.config(menu=menu)
 
     def _build_layout(self) -> None:
+        """
+        Build top bar layout.
+        """
         self.root.columnconfigure(0, weight=1)
         self.root.rowconfigure(1, weight=1)
 
@@ -421,11 +424,11 @@ class PdfReaderApp:
             padx=(6, 0),
         )
         ttk.Separator(toolbar, orient="vertical").pack(side="left", fill="y", padx=8)
-        ttk.Button(toolbar, text="-", width=3, command=self.decrease_zoom).pack(side="left")
         self.zoom_label = ttk.Label(toolbar, text="-", width=7, anchor="center")
         self.zoom_label.pack(side="left", padx=4)
-        ttk.Button(toolbar, text="+", width=3, command=self.increase_zoom).pack(side="left")
-        ttk.Button(toolbar, text="1:1", width=4, command=self.reset_zoom).pack(
+        ttk.Button(toolbar, text="Zoom In", width=10, command=self.increase_zoom).pack(side="left")
+        ttk.Button(toolbar, text="Zoom Out", width=10, command=self.decrease_zoom).pack(side="left")
+        ttk.Button(toolbar, text="Reset", width=8, command=self.reset_zoom).pack(
             side="left",
             padx=(6, 0),
         )
@@ -485,7 +488,7 @@ class PdfReaderApp:
 
     def choose_pdf(self) -> None:
         current_tab = self.current_tab()
-        options: dict[str, object] = {
+        options = {
             "title": "Open PDF",
             "filetypes": [("PDF files", "*.pdf"), ("All files", "*.*")],
         }
