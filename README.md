@@ -1,6 +1,6 @@
 # pdfr
 
-`pdfr` is a lightweight desktop PDF reader written in Python. It uses Tkinter for
+`pdfr` is a lightweight Windows-only desktop PDF reader written in Python. It uses Tkinter for
 the GUI and PyMuPDF for rendering PDF pages.
 
 ## Install
@@ -55,9 +55,9 @@ pdfr-debug C:\path\to\file.pdf
 
 - `Open` or `Ctrl+O`: open a PDF.
 - Right-click a tab to view or close it; `Ctrl+W` closes the current tab.
-- `+`, `Ctrl++`, or `Ctrl+=`: zoom in.
-- `-` or `Ctrl+-`: zoom out.
-- `1:1` or `Ctrl+0`: reset zoom to 100%.
+- `Zoom In`, `Ctrl++`, or `Ctrl+=`: zoom in.
+- `Zoom Out` or `Ctrl+-`: zoom out.
+- `Reset` or `Ctrl+0`: reset zoom to 100%.
 - Mouse wheel: scroll vertically.
 - Click and drag: pan the document.
 - Up and down arrows: scroll vertically.
