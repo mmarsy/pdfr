@@ -221,3 +221,6 @@ __marimo__/
 
 # Pdfs
 *.pdf
+
+# Notes
+dev-notes*
